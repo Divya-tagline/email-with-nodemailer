@@ -3,6 +3,7 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 const cron = require("node-cron");
 const fs = require("fs");
+var schedule = require('node-schedule');
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -19,6 +20,11 @@ var mailOptions = {
   text: `Hello Good Morning`
 };
 
+let startTime = new Date(Date.now() + 5000);
+let endTime = new Date(startTime.getTime() + 5000);
+var j = schedule.scheduleJob({ start: startTime, end: endTime, rule: '*/1 * * * * *' }, function(){
+  console.log('Time for tea!');
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
